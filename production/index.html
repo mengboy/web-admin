@@ -68,27 +68,27 @@
               <ul class="nav side-menu">
                 <li><a><i class="fa fa-cogs"></i> 终端管理 <span class="fa fa-chevron-down"></span></a>
                   <ul class="nav child_menu" style="display: none">
-                    <li><a href="lightControl.html">灯的状态及控制</a>
+                    <li><a href="light_control.html">灯的状态及控制</a>
                     </li>
-                    <li><a href="add_light.html">添加或删除灯</a></li>
+                    <li><a href="edit_light.html">灯的管理</a></li>
                     <!-- <li><a href="del_light.html">删除灯</a></li> -->
                   </ul>
                 </li>
                 <li><a><i class="fa fa-edit"></i> 教室管理 <span class="fa fa-chevron-down"></span></a>
                   <ul class="nav child_menu" style="display: none">
-                    <li><a href="open_room.html">开放教室信息</a>
+                    <li><a href="open_room_info.html">开放教室信息</a>
                     </li>
-                    <li><a href="add_open_room.html">添加开放教室</a>
+                    <!-- <li><a href="add_open_room.html">添加开放教室</a>
                     </li>
                     <li><a href="close_room.html">关闭已开放教室</a>
+                    </li> -->
+                    <li><a href="edit_room.html">教室管理</a>
                     </li>
-                    <li><a href="add_room.html">添加教室</a>
-                    </li>
-                    <li><a href="del_room.html">删除教室</a>
-                    </li>
+                    <!-- <li><a href="del_room.html">删除教室</a>
+                    </li> -->
                   </ul>
                 </li>
-                <li><a><i class="fa fa-envelope"></i> 通知消息 <span class="fa fa-chevron-down"></span></a>
+               <li><a ><i class="fa fa-envelope"></i> 通知消息 <span class="fa fa-chevron-down"></span></a>
                   <ul class="nav child_menu" style="display: none">
                     <li><a href="new_message.html">未读消息</a>
                     </li>
@@ -134,7 +134,7 @@
                   <span class=" fa fa-angle-down"></span>
                 </a>
                 <ul class="dropdown-menu dropdown-usermenu pull-right">
-                  <li><a href="javascript:;">  个人信息</a>
+                  <li><a href="javascript:;">个人信息</a>
                   </li>
                   <li>
                     <a href="javascript:;">
@@ -158,28 +158,12 @@
 
       <!-- page content -->
       <div class="right_col" role="main">
-        <div class="row tile_count">
-
-        </div>
-      </div>
     </div>
   </div>
-  <br />
+</div>
+  <br/>
   <script src="js/bootstrap.min.js"></script>
-
-  <!-- gauge js -->
-  <script type="text/javascript" src="js/gauge/gauge.min.js"></script>
-  <script type="text/javascript" src="js/gauge/gauge_demo.js"></script>
-  <!-- bootstrap progress js -->
   <script src="js/progressbar/bootstrap-progressbar.min.js"></script>
-  <!-- icheck -->
-  <script src="js/icheck/icheck.min.js"></script>
-  <!-- daterangepicker -->
-  <script type="text/javascript" src="js/moment/moment.min.js"></script>
-  <script type="text/javascript" src="js/datepicker/daterangepicker.js"></script>
-  <!-- chart js -->
-  <script src="js/chartjs/chart.min.js"></script>
-
   <script src="js/custom.js"></script>
 
   <!-- flot js -->
@@ -277,27 +261,6 @@
   <script type="text/javascript" src="js/maps/jquery-jvectormap-us-aea-en.js"></script>
   <!-- pace -->
   <script src="js/pace/pace.min.js"></script>
-  <script>
-    $(function() {
-      $('#world-map-gdp').vectorMap({
-        map: 'world_mill_en',
-        backgroundColor: 'transparent',
-        zoomOnScroll: false,
-        series: {
-          regions: [{
-            values: gdpData,
-            scale: ['#E6F2F0', '#149B7E'],
-            normalizeFunction: 'polynomial'
-          }]
-        },
-        onRegionTipShow: function(e, el, code) {
-          el.html(el.html() + ' (GDP - ' + gdpData[code] + ')');
-        }
-      });
-    });
-  </script>
-  <!-- skycons -->
-  <script src="js/skycons/skycons.min.js"></script>
   <script>
     var icons = new Skycons({
         "color": "#73879C"
@@ -429,6 +392,14 @@
       $('#destroy').click(function() {
         $('#reportrange').data('daterangepicker').remove();
       });
+    });
+    $(".off").click(function(){
+      $(".off").hide();
+      $(".on").show();
+    });
+    $(".on").click(function(){
+      $(".on").hide();
+      $(".off").show();
     });
   </script>
   <script>
