@@ -8,7 +8,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>管理员页面 | </title>
+  <title>管理员页面</title>
 
   <!-- Bootstrap core CSS -->
 
@@ -37,24 +37,17 @@
         <![endif]-->
 
 </head>
-
-
 <body class="nav-md">
-
   <div class="container body">
-
-
     <div class="main_container">
-
       <div class="col-md-3 left_col">
         <div class="left_col scroll-view">
-
           <div class="navbar nav_title" style="border: 0;">
             <a href="index.html" class="site_title"><i class="fa fa-wrench"></i> <span>后台管理</span></a>
           </div>
-          <!--<div class="clearfix"></div>
+          <!--<div class="clearfix"></div>-->
 
-           <!--menu prile quick info -->
+           <!-- menu prile quick info -->
           <!--<div class="profile">
             <div class="profile_pic">
               <img src="images/img.jpg" alt="..." class="img-circle profile_img">
@@ -67,49 +60,47 @@
           <!-- /menu prile quick info -->
 
           <br />
-
           <!-- sidebar menu -->
           <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
-
             <div class="menu_section">
-              <!--<h3>General</h3>-->
               <br/> <br/>
               <ul class="nav side-menu">
                 <li><a><i class="fa fa-cogs"></i> 终端管理 <span class="fa fa-chevron-down"></span></a>
                   <ul class="nav child_menu" style="display: none">
-                    <li><a href="lightControl.html">灯的状态及控制</a>
+                    <li><a href="light_control.html">灯的状态及控制</a>
                     </li>
-                    <li><a href="light_add_del.html">灯的添加和删除</a>
+                    <li><a href="edit_light.html">灯的管理</a></li>
+                    <!-- <li><a href="del_light.html">删除灯</a></li> -->
                   </ul>
                 </li>
                 <li><a><i class="fa fa-edit"></i> 教室管理 <span class="fa fa-chevron-down"></span></a>
                   <ul class="nav child_menu" style="display: none">
-                    <li><a href="#">开放教室信息</a>
+                    <li><a href="open_room_info.html">开放教室信息</a>
                     </li>
-                    <li><a href="#">添加开放教室</a>
+                    <li><a href="edit_room.html">教室管理</a>
                     </li>
-                    <li><a href="#">关闭已开放教室</a>
-                    </li>
-                    <li><a href="#">教室的添加和删除</a>
+                    </li> -->
+                  </ul>
+                </li>
+               <li><a ><i class="fa fa-envelope"></i> 通知消息 <span class="fa fa-chevron-down"></span></a>
+                  <ul class="nav child_menu" style="display: none">
+                    <li><a href="message.html">消息处理</a>
                     </li>
                   </ul>
                 </li>
-                <li><a><i class="fa fa-envelope"></i> 通知消息 <span class="fa fa-chevron-down"></span></a>
-                </li>
                 <li><a><i class="fa fa-check"></i> 申请审核 <span class="fa fa-chevron-down"></span></a>
                   <ul class="nav child_menu" style="display: none">
-                    <li><a href="tables.html">查看新申请</a>
+                    <li><a href="new_apply.html">查看新申请</a>
                     </li>
-                    <li><a href="tables_dynamic.html">查看所有申请</a>
+                    <li><a href="all_apply.html">查看所有申请</a>
                     </li>
                   </ul>
                 </li>
                 <li><a><i class="fa fa-user"></i> 用户管理 <span class="fa fa-chevron-down"></span></a>
                   <ul class="nav child_menu" style="display: none">
-                    <li><a href="e_commerce.html">添加管理员</a>
+                    <li><a href="add_admin.html">添加管理员</a>
                     </li>
-                    <li><a href="e_commerce.html">删除管理员</a><!--直接列出所有管理员-->
-                    </li>
+                    <!-- <li><a href="del_admin.html">删除管理员</a> </li> -->
                   </ul>
                 </li>
               </ul>
@@ -118,9 +109,8 @@
         </div>
       </div>
 
-      <!-- top navigation -->
+      <!-- /top navigation -->
       <div class="top_nav">
-
         <div class="nav_menu">
           <nav class="" role="navigation">
             <div class="nav toggle">
@@ -134,7 +124,7 @@
                   <span class=" fa fa-angle-down"></span>
                 </a>
                 <ul class="dropdown-menu dropdown-usermenu pull-right">
-                  <li><a href="javascript:;">  个人信息</a>
+                  <li><a href="javascript:;">个人信息</a>
                   </li>
                   <li>
                     <a href="javascript:;">
@@ -153,18 +143,117 @@
           </nav>
         </div>
       </div>
-      <!-- /top navigation -->
-
 
       <!-- page content -->
       <div class="right_col" role="main">
-        <div class="row tile_count"></div>
+        <div class="row-fluid">
+          <table style="height:30px; margin:auto;" class="table">
+            <tr>
+              <!-- <td style="text-align:right; font-size:15px; width:80px"></td> -->
+              <td>
+                <select name="building" style="margin-top:6px; padding:0px; height:25px; text-align:center">
+                  <option>选择消息类型</option>
+                  <option>故障报警</option>
+                  <option>教室信息</option>
+                </select>
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                <select name="class_room" style="padding:0px; margin-top:6px; height:25px; text-align:center">
+                  <option>选择消息状态</option>
+                  <option>已读</option>
+                  <option>未读</option>
+                </select>
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                <button style="height:25px; font-size:13px;" type="button" class="btn btn-default">筛选</button>
+              </td>
+              <td>
+                <button style="width:40px; height:25px; margin-top:6px;" type="button" class="btn btn-danger">删除</button>
+              </td>
+            </tr>
+          </table>
+        <!-- </div> -->
+      <!-- </div> -->
+      <!-- <div class="row-fluid"> -->
+        <table style="margin:auto; text-align:center;" class="table table-striped table-bordered table-hover datatable">
+          <thead style="text-align:center;">
+            <tr style="height:30px">
+              <th style="text-align:center"><input class="choice_all" type="checkbox" value="" /></th>
+              <th style="text-align:center">序号</th>
+              <th style="text-align:center">标题</th>
+              <th style="text-align:center">时间</th>
+              <th style="text-align:center">消息类型</th>
+              <th style="text-align:center">消息状态</th>
+              <th style="text-align:center">操作</th>
+              <!-- <th style="text-align:center">操作</th> -->
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="height:40px;" class="odd gradeX">
+              <td><input class="choice" type="checkbox" value="" /></td>
+              <td>1</td>
+              <td>aeigivs</td>
+              <td>2016-5-10</td>
+              <td>
+                故障报警
+              </td>
+              <td>
+                未读
+              </td>
+              <td><button style="width:40px; height:25px; margin-top:6px;" type="button" class="btn btn-warning">查看</button></td>
+            </tr>
+            <tr style="height:40px;" class="odd gradeX">
+              <td><input class="choice" type="checkbox" value="" /></td>
+              <td>1</td>
+              <td>aeigivs</td>
+              <td>2016-5-10</td>
+              <td>
+                故障报警
+              </td>
+              <td>
+                未读
+              </td>
+              <td><button style="width:40px; height:25px; margin-top:6px;" type="button" class="btn btn-warning">查看</button></td>
+            </tr>
+            <tr style="height:40px;" class="odd gradeX">
+              <td><input class="choice" type="checkbox" value="" /></td>
+              <td>1</td>
+              <td>aeigivs</td>
+              <td>2016-5-10</td>
+              <td>
+                故障报警
+              </td>
+              <td>
+                未读
+              </td>
+              <td><button style="width:40px; height:25px; margin-top:6px;" type="button" class="btn btn-warning">查看</button></td>
+            </tr>
+            <tr style="height:40px;" class="odd gradeX">
+              <td><input class="choice" type="checkbox" value="" /></td>
+              <td>1</td>
+              <td>aeigivs</td>
+              <td>2016-5-10</td>
+              <td>
+                故障报警
+              </td>
+              <td>
+                未读
+              </td>
+              <td><button style="width:40px; height:25px; margin-top:6px;" type="button" class="btn btn-warning">查看</button></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div style="margin-top:10px;" class="row-fluid clearfix">
+        <div style="height:32px; text-align:center">
+          <p>
+            当前第页&nbsp;共页&nbsp;&nbsp;&nbsp;&nbsp;
+            <button type="button" class="btn btn-primary" data-toggle="button">上一页</button>
+            <button type="button" class="btn btn-primary" data-toggle="button">下一页</button>
+          </p>
+        <!-- <div class="row tile_count"></div> -->
       </div>
     </div>
   </div>
-
   <br />
-
   <script src="js/bootstrap.min.js"></script>
 
   <!-- gauge js -->
@@ -193,6 +282,18 @@
   <script type="text/javascript" src="js/flot/jquery.flot.stack.js"></script>
   <script type="text/javascript" src="js/flot/curvedLines.js"></script>
   <script type="text/javascript" src="js/flot/jquery.flot.resize.js"></script>
+  <script>
+    $(".choice_all").click(function(){
+      if($(".choice_all").is(":checked"))
+      {
+        $(".choice").attr("checked", true);
+        alert($(".choice").attr("checked"));
+      }else{
+        $(".choice").attr("checked", false);
+        alert($(".choice").attr("checked"));
+      }
+    });
+  </script>
   <script>
     $(document).ready(function() {
       // [17, 74, 6, 39, 20, 85, 7]
