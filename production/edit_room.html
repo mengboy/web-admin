@@ -68,24 +68,17 @@
               <ul class="nav side-menu">
                 <li><a><i class="fa fa-cogs"></i> 终端管理 <span class="fa fa-chevron-down"></span></a>
                   <ul class="nav child_menu" style="display: none">
-                    <li><a href="lightControl.html">灯的状态及控制</a>
+                    <li><a href="light_control.html">灯的状态及控制</a>
                     </li>
-                    <li><a href="add_light.html">添加灯</a></li>
-                    <li><a href="del_light.html">删除灯</a></li>
+                    <li><a href="add_light.html">灯的管理</a></li>
                   </ul>
                 </li>
                 <li><a><i class="fa fa-edit"></i> 教室管理 <span class="fa fa-chevron-down"></span></a>
                   <ul class="nav child_menu" style="display: none">
                     <li><a href="open_room_info.html">开放教室信息</a>
                     </li>
-                    <!-- <li><a href="add_open_room.html">添加开放教室</a>
-                    </li>
-                    <li><a href="close_room.html">关闭已开放教室</a>
-                    </li> -->
                     <li><a href="edit_room.html">教室管理</a>
                     </li>
-                    <!-- <li><a href="del_room.html">删除教室</a>
-                    </li> -->
                   </ul>
                 </li>
                 <li><a><i class="fa fa-envelope"></i> 通知消息 <span class="fa fa-chevron-down"></span></a>
@@ -187,7 +180,7 @@
                 <button style="height:25px; margin-top:6px; font-size:13px;" type="button" class="btn btn-default">查询</button>
               </td>
               <td style="text-align:right;">
-                <button style="width:40px; height:25px; margin-top:6px;" type="button" class="btn btn-success">新增</button>
+                <button id="add" style="width:40px; height:25px; margin-top:6px;" type="button" class="btn btn-success">新增</button>
                 <button style="width:40px; height:25px; margin-top:6px;" type="button" class="btn btn-danger">删除</button>
               </td>
             </tr>
@@ -202,8 +195,6 @@
               <th style="text-align:center">序号</th>
               <th style="text-align:center">教室号</th>
               <th style="text-align:center">修改</th>
-              <!-- <th style="text-align:center">修改</th> -->
-              <!-- <th style="text-align:center">操作</th> -->
             </tr>
           </thead>
           <tbody>
@@ -211,34 +202,19 @@
               <td><input type="checkbox" value="" /></td>
               <td>1</td>
               <td>11010</td>
-              <td><button style="width:40px; height:25px; margin-top:6px;" type="button" class="btn btn-warning">修改</button></td>
-              <!-- <td><button style="width:40px; height:25px; margin-top:6px;" type="button" class="btn btn-warning">修改</button></td> -->
-              <!-- <td>
-                <button style="width:40px; height:25px; margin-top:6px;" type="button" class="btn btn-warning">修改</button>
-                <button style="width:40px; height:25px; margin-top:6px;" type="button" class="btn btn-danger">删除</button>
-              </td> -->
+              <td><button id="11010" style="width:40px; height:25px; margin-top:6px;" type="button" class="btn btn-warning">修改</button></td>
             </tr>
             <tr style="height:40px;" class="odd gradeX">
               <td><input type="checkbox" value="" /></td>
               <td>2</td>
               <td>11010</td>
-              <td><button style="width:40px; height:25px; margin-top:6px;" type="button" class="btn btn-warning">修改</button></td>
-              <!-- <td><button style="width:40px; height:25px; margin-top:6px;" type="button" class="btn btn-warning">修改</button></td> -->
-              <!-- <td>
-                <button style="width:40px; height:25px; margin-top:6px;" type="button" class="btn btn-warning">修改</button>
-                <button style="width:40px; height:25px; margin-top:6px;" type="button" class="btn btn-danger">删除</button>
-              </td> -->
+              <td><button id="11011" style="width:40px; height:25px; margin-top:6px;" type="button" class="btn btn-warning">修改</button></td>
             </tr>
             <tr style="height:40px;" class="odd gradeX">
               <td><input type="checkbox" value="" /></td>
               <td>3</td>
               <td>11010</td>
-              <td><button style="width:40px; height:25px; margin-top:6px;" type="button" class="btn btn-warning">修改</button></td>
-              <!-- <td><button style="width:40px; height:25px; margin-top:6px;" type="button" class="btn btn-warning">修改</button></td> -->
-              <!-- <td>
-                <button style="width:40px; height:25px; margin-top:6px;" type="button" class="btn btn-warning">修改</button>
-                <button style="width:40px; height:25px; margin-top:6px;" type="button" class="btn btn-danger">删除</button>
-              </td> -->
+              <td><button id="11012" style="width:40px; height:25px; margin-top:6px;" type="button" class="btn btn-warning">修改</button></td>
             </tr>
           </tbody>
         </table>
@@ -250,7 +226,6 @@
             <button type="button" class="btn btn-primary" data-toggle="button">上一页</button>
             <button type="button" class="btn btn-primary" data-toggle="button">下一页</button>
           </p>
-        <!-- <div class="row tile_count"></div> -->
       </div>
     </div>
   </div>
@@ -520,6 +495,23 @@
         $('#reportrange').data('daterangepicker').remove();
       });
     });
+  </script>
+  <!--弹出层-->
+  <script type="text/javascript" src="layer/layer.js"></script>
+  <script>
+    $("#add").click(function(){
+      layer.open({
+        type: 2,
+        title: '添加教室',
+        shadeClose: true,
+        shade: 0.8,
+        area: ['390px', '80%'],
+        content: 'http://localhost/gentelella-1.1.0/web-admin/production/add_room.html' //iframe的url
+      });
+    });
+    $("button").click(function(){
+      alert($(this).attr("id"));
+    })
   </script>
   <script>
     NProgress.done();
