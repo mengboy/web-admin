@@ -175,7 +175,7 @@
                 <button style="height:25px; margin-top:6px; font-size:13px;" type="button" class="btn btn-default">查询</button>
               </td>
               <td style="text-align:right;">
-                <button style="width:40px; height:25px; margin-top:6px;" type="button" class="btn btn-success">新增</button>
+                <button id="add" style="width:40px; height:25px; margin-top:6px;" type="button" class="btn btn-success">新增</button>
                 <button style="width:40px; height:25px; margin-top:6px;" type="button" class="btn btn-danger">删除</button>
               </td>
             </tr>
@@ -271,9 +271,6 @@
   <script type="text/javascript" src="js/flot/jquery.flot.stack.js"></script>
   <script type="text/javascript" src="js/flot/curvedLines.js"></script>
   <script type="text/javascript" src="js/flot/jquery.flot.resize.js"></script>
-  <script>
-
-  </script>
   <script>
     $(document).ready(function() {
       // [17, 74, 6, 39, 20, 85, 7]
@@ -509,6 +506,30 @@
       });
       $('#destroy').click(function() {
         $('#reportrange').data('daterangepicker').remove();
+      });
+    });
+  </script>
+  <!--弹出层-->
+  <script type="text/javascript" src="layer/layer.js"></script>
+  <script>
+    $("#add").click(function(){
+      layer.open({
+        type: 2,
+        title: '添加新的灯',
+        shadeClose: true,
+        shade: 0.8,
+        area: ['390px', '80%'],
+        content: 'http://localhost/gentelella-1.1.0/web-admin/production/add_light.html' //iframe的url
+      });
+    });
+    $(".btn").click(function{
+      layer.open({
+        type: 2,
+        title: '添加新的灯',
+        shadeClose: true,
+        shade: 0.8,
+        area: ['390px', '80%'],
+        content: 'http://localhost/gentelella-1.1.0/web-admin/production/update_light.html' //iframe的url
       });
     });
   </script>
