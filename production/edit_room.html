@@ -179,7 +179,7 @@
               </td>
               <td style="text-align:right;">
                 <button id="add" style="width:40px; height:25px; margin-top:6px;" type="button" class="btn btn-success">新增</button>
-                <button style="width:40px; height:25px; margin-top:6px;" type="button" class="btn btn-danger">删除</button>
+                <button id="del" style="width:40px; height:25px; margin-top:6px;" type="button" class="btn btn-danger">删除</button>
               </td>
             </tr>
           </table>
@@ -221,8 +221,8 @@
         <div style="height:32px; text-align:center">
           <p>
             当前第页&nbsp;共页&nbsp;&nbsp;&nbsp;&nbsp;
-            <button type="button" class="btn btn-primary" data-toggle="button">上一页</button>
-            <button type="button" class="btn btn-primary" data-toggle="button">下一页</button>
+            <button id="last_page" type="button" class="btn btn-primary" data-toggle="button">上一页</button>
+            <button id="next_page" type="button" class="btn btn-primary" data-toggle="button">下一页</button>
           </p>
       </div>
     </div>
@@ -515,16 +515,18 @@
       else
       {
         var id = $(this).attr("id");
-        alert(id);
-        document.cookie = "id="+id;
-        layer.open({
-          type: 2,
-          title: '修改教室信息',
-          shadeClose: true,
-          shade: 0.8,
-          area: ['390px', '80%'],
-          content: 'http://localhost/gentelella-1.1.0/web-admin/production/update_room.html' //iframe的url
-        });
+        if(id != "last_page" && id != "next_page" && id != "del")
+        {
+          document.cookie = "id="+id;
+          layer.open({
+            type: 2,
+            title: '修改教室信息',
+            shadeClose: true,
+            shade: 0.8,
+            area: ['390px', '80%'],
+            content: 'http://localhost/gentelella-1.1.0/web-admin/production/update_room.html' //iframe的url
+          });
+        }
       }
     })
   </script>
