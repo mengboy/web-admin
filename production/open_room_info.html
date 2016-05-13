@@ -178,7 +178,7 @@
                 <button style="height:25px; margin-top:6px; font-size:13px;" type="button" class="btn btn-default">查询</button>
               </td>
               <td style="text-align:center;">
-                <button style="width:40px; height:25px; margin-top:6px;" type="button" class="btn btn-success">添加</button>
+                <button id="add" style="width:40px; height:25px; margin-top:6px;" type="button" class="btn btn-success">新增</button>
               </td>
             </tr>
           </table>
@@ -511,6 +511,20 @@
         $('#reportrange').data('daterangepicker').remove();
       });
     });
+  </script>
+  <!--弹出层-->
+  <script type="text/javascript" src="layer/layer.js"></script>
+  <script>
+  $("#add").click(function(){
+    layer.open({
+      type: 2,
+      title: '添加开放教室',
+      shadeClose: true,
+      shade: 0.8,
+      area: ['390px', '80%'],
+      content: 'http://localhost/gentelella-1.1.0/web-admin/production/add_open_room.html' //iframe的url
+    });
+  });
   </script>
   <script>
     NProgress.done();
