@@ -158,18 +158,15 @@
               <tr>
                 <td>
                    审核：
-                   <input name="pass" type="radio" value="通过" /> 通过
-                   <input name="not_pass" type="radio" value="不通过" /> 不通过
+                   <input id="pass" name="pass" type="radio" value="通过" /> 通过
+                   <input id="not_pass" name="not_pass" type="radio" value="不通过" /> 不通过
                    &nbsp;&nbsp;
                    分配教室
-                   <input type="text" name="room_num" value="" />
-                   <button type="button" name="confirm">确定</button>
+                   <input id="classroom_id" type="text" name="classroom_id" value="" />
+                   <button type="button" name="confirm" onclick="check_submit()">确定</button>
                 </td>
               </tr>
             </table>
-          <!-- </div> -->
-        <!-- </div> -->
-        <!-- <div class="row-fluid"> -->
           <table style="margin:auto; text-align:center;" class="table table-striped table-bordered table-hover datatable">
             <tbody>
               <tr style="height:30px">
@@ -185,9 +182,11 @@
                 <td>
                   <div name="name" style="margin-top:10%; text-align:right; font-size:15px;">
                      姓&nbsp;&nbsp;名
+
                   </div>
                 </td>
                 <td>
+                  <span id="studentName"></span>
                   <input style="margin-top:2%" type="text" name="name" value=""  />
                 </td>
                 <td>
@@ -196,24 +195,27 @@
                   </div>
                 </td>
                 <td>
+                  <span id="studentNumber"></span>
                   <input style="margin-top:2%" type="text" name="stu_num" value=""  />
                 </td>
               </tr>
               <tr style="height:40px;" class="odd gradeX">
                 <td style="width:11%;">
-                  <div style="margin-top:10%; text-align:right; font-size:15px;">
+                  <div name="classname" style="margin-top:10%; text-align:right; font-size:15px;">
                   班&nbsp;&nbsp;级
                   </div>
                 </td>
                 <td>
+                  <span id="studentClass"></span>
                   <input style="margin-top:2%" type="text" name="class_num" value=""  />
                 </td>
                 <td>
-                  <div style="margin-top:10%; text-align:right; font-size:15px;">
+                  <div name="cardnumber" style="margin-top:10%; text-align:right; font-size:15px;">
                   身份证号
                   </div>
                 </td>
                 <td>
+                  <span id="studentCard"></span>
                   <input style="margin-top:2%" type="text" name="id_num" value=""  />
                 </td>
               </tr>
@@ -229,20 +231,22 @@
                 </td>
                 <td>
                   开始时间：
-                  <input style="margin-top:1%" class="start_time" type="text" name="star_time" value="" />
+                  <span id="startTime"></span>
+                  <input style="margin-top:1%" class="start_time" type="text" name="starttime" value="" />
                   &nbsp;&nbsp;&nbsp;
                   结束时间：
-                  <input style="margin-top:1%" class="end_time" type="text" name="end_time" value="" />
+                  <span id="endTime"></span>
+                  <input style="margin-top:1%" class="end_time" type="text" name="endtime" value="" />
                 </td>
               </tr>
               <tr>
                 <td>
-                  <div style="margin-top:90%; text-align:center; font-size:15px;">
+                  <div style="margin-top:20%; text-align:center; font-size:15px;">
                     申请理由
                   </div>
                 </td>
                 <td>
-                  <textarea style="width:60%; height:200px;">
+                  <textarea id="content" name="reason" style="width:60%; height:200px;">
 
                   </textarea>
                 </td>
@@ -250,7 +254,7 @@
               <tr>
                 <td>
                   <div style="text-align:center; font-size:15px;">
-                    申请理由
+                    证明材料
                   </div>
                 </td>
                 <td>
@@ -263,7 +267,8 @@
             <tbody>
               <tr>
                 <td>
-                  <button style="height:25px; margin-top:6px;" type="button">提交</button>
+                  &nbsp;&nbsp;
+                  <!-- <button style="height:25px; margin-top:6px;" type="button">提交</button> -->
                 </td>
               </tr>
             </tbody>
@@ -520,6 +525,79 @@
       $(".on").hide();
       $(".off").show();
     });
+  </script>
+  <!-- 获取数据 -->
+  <script>
+  //图片地址传递
+  function add_pic_src(set_part, put_part)
+  {
+    $(set_part).arrt("href", put_part;
+  }
+  //获取基本值
+  function add_basic(set_part, in_part){
+    $(set_part).html(in_part == null ? "" : in_part);
+  }
+  //获取参数
+  $(document).ready(function(){
+    $.ajax({
+      url: "",
+      type: "post",
+      data: {
+        id: "1"
+      },
+      dataType: "json",
+      success : function(resp){
+        var status = resp.status;
+        if (status != 0) {
+          alert("为得到信息");
+        }
+        if (status == 0) {
+          add_basic("#studentNumber", resp.body.studentNumber);
+          add_basic("#studentName", resp.body.studentName);
+          add_basic("#studentClass", resp.body.studentClass);
+          add_basic("#studentCard", resp.body.studentCard);
+          add_basic("#content", resp.body.content);
+          add_basic("#startTime", resp.body.startTime);
+          add_basic("#endTime", resp.body.endTime);
+          add_pic_src("#appendixAddr"， resp.body.appendixAddr);
+        }
+      }
+    });
+  });
+  </script>
+  <!-- 提交数据 -->
+  <script>
+  function check_submit()
+  {
+    var myFormData = new FormData();
+    var pass = $("#pass").attr("checked");
+    var not_pass = $("#not_pass").attr("checked");
+    if (pass) {
+      myFormData.append("check_status", "1");
+    }else if (not_pass) {
+      myFormData.append("check_status", "2");
+    }else {
+      myFormData.append("check_status", "0");
+    }
+    var classroom_id = $("#classroom_id").val();
+    myFormData.append("classroom_id", classroom_id);
+    myFormData.append("id", "2");
+    $.ajax({
+      url: "../manage/apply/update",
+      type: "POST",
+      dataType: "json",
+      processData: false,
+      contentType: false,
+      success:function(resp){
+        if(resp.status == 0)
+        {
+          alert("审核成功");
+        }else{
+          alert("审核失败");
+        }
+      }
+    });
+  }
   </script>
   <script>
     NProgress.done();
