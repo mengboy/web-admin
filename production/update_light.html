@@ -46,13 +46,21 @@
       </div>
       <div style="margin-left:100px; margin-top:10px;">
         灯编号：
-        <input style="width:100px" class="light_num" type="text" value="" />
+        <input id="id" style="width:100px" class="light_num" type="text" value="" />
       </div>
       <div style="margin-left:120px; margin-top:10px;">
-        <input type="button" value="修改" />
+        <input id="change" type="button" value="修改" />
         &nbsp;&nbsp;&nbsp;&nbsp;
         <input type="reset" value="取消"/>
       </div>
     </div>
   </body>
+  <script type="text/javascript" src="js/maps/jquery-jvectormap-2.0.3.min.js"></script>
+  <script>
+    var id = document.cookie[1];
+    $("#change").click(function(){
+      alert(id);
+      $("#id").val(id);
+    });
+  </script>
 </html>
