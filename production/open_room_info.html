@@ -237,9 +237,9 @@
       <div style="margin-top:10px;" class="row-fluid clearfix">
         <div style="height:32px; text-align:center">
           <p>
-            当前第页&nbsp;共页&nbsp;&nbsp;&nbsp;&nbsp;
-            <button type="button" class="btn btn-primary" data-toggle="button">上一页</button>
-            <button type="button" class="btn btn-primary" data-toggle="button">下一页</button>
+            当前第<span id="currentPage"></span>页&nbsp;共<span id="totalPage"></span>页&nbsp;&nbsp;&nbsp;&nbsp;
+            <button id="last_page" type="button" class="btn btn-primary" data-toggle="button" onclick="showpage(1)">上一页</button>
+            <button id="next_page" type="button" class="btn btn-primary" data-toggle="button" onclick="showpage(2)">下一页</button>
           </p>
         <!-- <div class="row tile_count"></div> -->
       </div>
@@ -525,6 +525,87 @@
       content: 'http://localhost/gentelella-1.1.0/web-admin/production/add_open_room.html' //iframe的url
     });
   });
+  </script>
+  <script>
+  function getbaseurl() {
+    //	return "http://localhost:8080/sist/";
+    return "/partyplatform/";
+  }
+
+  var grequestPage = 1;//请求页
+  var gpageSize = 10;//一次页面显示数量--默认十不修改
+  var gcheck_status = 3;//查找类型，0,1,2,若为3，则查找全部
+  //var gapply_status = Number($("#table").attr("title"));//不变程序体中0-5入党状态
+  //var gcheck_result = 0;//审核类型
+  //var totalPage = 1;
+  function read(grequestPage, gpageSize, gcheck_status)
+  {
+    $.ajax({
+      url: "api/light/getlightbyadmin",
+      type: "post",
+      data: {
+        requestPage: grequestPage,
+        pageSize: gpageSize,
+        check_status: gcheck_status
+      },
+      dataType: "json",
+      success: function(resp){
+        var status = resp.status;
+        if (status == 0) {
+          $("tr").remove(".one");
+          totalPage = resp.body.totalPage == null ? 0 : resp.body.totalPage;
+          $("#currentPage").html(resp.body.currentPage);
+          $("totalPage").html(totalPage);
+          for (var i = 0; i < resp.body.results; i++) {
+            var results = resp.body.results[i];
+            if (results.light.status == "1") {
+              var status = "开启";
+            }
+            var newRow = "<tr class=" + "one" + "><td><input type="
+              + "checkbox" + " value=" + "/></td>"
+              + "<td>"+ {i+1} + "</td>"
+              + "<td>"+result.id+"</td>"
+              + "<td>"+ result.studentName + "</td>" + "<td>"
+              + result.applyTime + "</td>" + "<td>" + result.checkStatus
+              + "</td>" + "<td>" + "<button type=" + "button" + "class=" + "btn btn-warning" + ">"
+              + "<a id=" + result.studentNumber + "href=" + "check_play.html?name=" + result.studentNumber
+              + "查看" + "</a" + "</button>" + "</td>"
+              + "</td>" + "<td>" + "<button type=" + "button" + "class=" + "btn btn-danger" + "id=" + result.studentNumber + ">"
+              + "</button>" + "</td>"
+              + "</tr>";
+            $("#table").append(newRow);
+          }
+        }
+      }
+    });
+  }
+  //<button type="button" class="btn btn-warning">查看</button>
+  //<button type="button" class="btn btn-danger">删除</button>
+  // 初始化
+  $(document).ready(function() {
+    read(grequestPage, gpageSize, gcheck_status);
+  });
+  //翻页
+  function showpage(type) {
+  if (type == 1) {
+    if (grequestPage == 1)
+      return false;
+    grequestPage--;
+  } else if (type == 2) {
+    if (grequestPage == totalPage)
+      return false;
+    grequestPage++;
+  } else {
+
+  }
+  read(grequestPage, gpageSize, gcheck_status);
+}
+//查询
+function selectchange(gcheck_result1) {
+  gcheck_result = gcheck_result1;
+  grequestPage = 1;
+  read(grequestPage, gpageSize, gcheck_status);
+}
   </script>
   <script>
     NProgress.done();

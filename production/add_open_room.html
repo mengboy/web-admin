@@ -8,7 +8,7 @@
     <div>
       <div style=" margin-top:10px; margin-left:100px;">
         教学楼：
-        <select>
+        <select id="building">
           <option>
             选择教学楼
           </option>
@@ -25,7 +25,7 @@
       </div>
       <div style="margin-top:10px;  margin-left:100px;">
         楼&nbsp;&nbsp;&nbsp;&nbsp;层：
-        <select>
+        <select id="floor">
           <option>
             选择楼层
           </option>
@@ -42,13 +42,42 @@
       </div>
       <div style="margin-left:100px; margin-top:10px;">
         教室号：
-        <input style="width:100px" class="room_num" type="text" value="" />
+        <input id="classroom_id" style="width:100px" class="room_num" type="text" value="" />
       </div>
       <div style="margin-left:120px; margin-top:10px;">
-        <input type="button" value="添加" />
+        <input type="button" value="添加" onclick="open_room_add()" />
         &nbsp;&nbsp;&nbsp;&nbsp;
         <input type="reset" value="取消"/>
       </div>
     </div>
   </body>
+  <!-- 提交数据 -->
+  <script>
+    function open_room_add()
+    {
+      var myFormData = new FormData();
+      var building = $("#building").find("option:selected").text();
+      var floor = $("#floor").find("option:selected").text();
+      var id = $("classroom_id").val();
+      var not_pass = $("#not_pass").attr("checked");
+      myFormData.append("building", building);
+      myFormData.append("floor", floor);
+      myFormData.append("id", id);
+      $.ajax({
+        url: "manage/classroom/add",
+        type: "POST",
+        dataType: "json",
+        processData: false,
+        contentType: false,
+        success:function(resp){
+          if(resp.status == 0)
+          {
+            alert("添加成功");
+          }else{
+            alert("添加失败");
+          }
+        }
+      });
+    }
+  </script>
 </html>
