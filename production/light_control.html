@@ -48,6 +48,10 @@
   td{
     vertical-align: middle;
   }
+  img{
+    height: 40px;
+    width: 100px;
+  }
 </style>
 </head>
 <body class="nav-md">
@@ -169,7 +173,7 @@
               <tr>
                 <!-- <td style="text-align:right; font-size:15px; width:80px"></td> -->
                 <td>
-                  <select name="building" style="margin-top:6px; padding:0px; height:25px; text-align:center">
+                  <select id="building" style="margin-top:6px; padding:0px; height:25px; text-align:center">
                     <option>选择教学楼</option>
                     <option>一教</option>
                     <option>二教</option>
@@ -177,9 +181,9 @@
                     <option>五教</option>
                   </select>
                   &nbsp;&nbsp;&nbsp;&nbsp;
-                  <select name="class_room" style="padding:0px; margin-top:6px; height:25px; text-align:center">
+                  <select id="floor" style="padding:0px; margin-top:6px; height:25px; text-align:center">
                     <option>选择楼层</option>
-                    <option>1011</option>
+                    <option value="1">1011</option>
                     <option>1012</option>
                     <option>1013</option>
                     <option>1014</option>
@@ -197,7 +201,7 @@
           <!-- </div> -->
         <!-- </div> -->
         <!-- <div class="row-fluid"> -->
-          <table style="margin:auto; vertical-align: middle; text-align:center;" class="table table-striped table-bordered table-hover datatable">
+          <table id="table" style="margin:auto; vertical-align: middle; text-align:center;" class="table table-striped table-bordered table-hover datatable">
             <thead style="text-align:center;">
               <tr style="height:30px">
                 <th style="text-align:center">序号</th>
@@ -220,8 +224,8 @@
                   17：46：51
                 </td>
                 <td>
-                  <img class="off" width="100px" height="40px" src="images/off.png" />
-                  <img class="on" style="display:none" width="100px" height="40px" src="images/on.png" />
+                  <img class="off" src="images/off.png" />
+                  <img class="on" style="display:none" src="images/on.png" />
                 </td>
                 <td>
                   <button style="width:40px; height:25px;" type="button" class="btn btn-success">开启</button>
@@ -516,89 +520,111 @@
     });
   </script>
   <script>
-  function getbaseurl() {
-    //	return "http://localhost:8080/sist/";
-    return "/partyplatform/";
-  }
+    function getbaseurl() {
+      //	return "http://localhost:8080/sist/";
+      return "/partyplatform/";
+    }
 
-  var grequestPage = 1;//请求页
-  var gpageSize = 10;//一次页面显示数量--默认十不修改
-  var gcheck_status = 3;//查找类型，0,1,2,若为3，则查找全部
-  //var gapply_status = Number($("#table").attr("title"));//不变程序体中0-5入党状态
-  //var gcheck_result = 0;//审核类型
-  //var totalPage = 1;
-  function read(grequestPage, gpageSize, gcheck_status)
-  {
-    $.ajax({
-      url: "api/light/getlightbyadmin",
-      type: "post",
-      data: {
-        requestPage: grequestPage,
-        pageSize: gpageSize,
-        check_status: gcheck_status
-      },
-      dataType: "json",
-      success: function(resp){
-        var status = resp.status;
-        if (status == 0) {
-          $("tr").remove(".one");
-          totalPage = resp.body.totalPage == null ? 0 : resp.body.totalPage;
-          $("#currentPage").html(resp.body.currentPage);
-          $("totalPage").html(totalPage);
-          for (var i = 0; i < resp.body.results; i++) {
-            var results = resp.body.results[i];
-            if (results.light.status == "1") {
-              var status = "开启";
+    var grequestPage = 1;//请求页
+    var gpageSize = 10;//一次页面显示数量--默认十不修改
+    var gcheck_status = 3;//查找类型，0,1,2,若为3，则查找全部
+    var gtype = 3;
+    var gcondition = "gh";
+    //var gapply_status = Number($("#table").attr("title"));//不变程序体中0-5入党状态
+    //var gcheck_result = 0;//审核类型
+    //var totalPage = 1;
+    function read(grequestPage, gpageSize, gtype, gcondition)
+    {
+      $.ajax({
+        url: "api/light/getlightbyadmin",
+        type: "post",
+        data: {
+          requestPage: grequestPage,
+          pageSize: gpageSize,
+          type: gtype,
+          condition: gcondition
+        },
+        dataType: "json",
+        success: function(resp){
+          var status = resp.status;
+          if (status == 0) {
+            $("tr").remove(".one");
+            totalPage = resp.body.totalPage == null ? 0 : resp.body.totalPage;
+            $("#currentPage").html(resp.body.currentPage);
+            $("totalPage").html(totalPage);
+            for (var i = 0; i < resp.body.results; i++) {
+              var results = resp.body.results[i];
+              var status， mode_on, mode_off, color;
+              if (results.light.status == "1") {
+                status = "关闭";
+                color = "#f0ad4e";
+              }else{
+                status = "开启";
+                color = "#26b99a";
+              }
+              if (results.mode == 1) {
+                mode_on = "images/on.png";
+              }else {
+                mode_off = "images/off.png";
+              }
+              // <img class="off" width="100px" height="40px" src="images/off.png" />
+              // <img class="on" style="display:none" width="100px" height="40px" src="images/on.png" />
+              var newRow = "<tr class=" + "one" + "><td><input type="
+                + "checkbox" + " value=" + "/></td>"
+                + "<td>" + {i+1} + "</td>"
+                + "<td>" + result.id+"</td>"
+                + "<td>" + result.id.substring(0,1) +"教"+ result.id.substring(1,2) +"楼" + result.id +"号"+ "</td>"
+                + "<td>" + "<font color=" +color+ ">" + status + "</font>" + "</td>"
+                + "<td>" + result.time+ "</td>"
+                + "<td>" + "<img id=off" + results.id + "src=" + mode_off + " />" +
+                + "<img style='display:none' id=off" + results.id + "src=" + mode_off + " />" + "</td>"
+                + "<td>" + "<button type=" + "button" + "class=" + "btn btn-success" + ">"
+                + "<a id=" + result.studentNumber + "href=" + "check_play.html?name=" + result.studentNumber
+                + "开启" + "</a" + "</button>" + "</td>"
+                + "</tr>";
+              $("#table").append(newRow);
             }
-            var newRow = "<tr class=" + "one" + "><td><input type="
-              + "checkbox" + " value=" + "/></td>"
-              + "<td>"+ {i+1} + "</td>"
-              + "<td>"+result.id+"</td>"
-              + "<td>"+ result.studentName + "</td>" + "<td>"
-              + result.applyTime + "</td>" + "<td>" + result.checkStatus
-              + "</td>" + "<td>" + "<button type=" + "button" + "class=" + "btn btn-warning" + ">"
-              + "<a id=" + result.studentNumber + "href=" + "check_play.html?name=" + result.studentNumber
-              + "查看" + "</a" + "</button>" + "</td>"
-              + "</td>" + "<td>" + "<button type=" + "button" + "class=" + "btn btn-danger" + "id=" + result.studentNumber + ">"
-              + "</button>" + "</td>"
-              + "</tr>";
-            $("#table").append(newRow);
           }
         }
-      }
+      });
+    }
+    //<button type="button" class="btn btn-warning">查看</button>
+    //<button type="button" class="btn btn-danger">删除</button>
+    // 初始化
+    $(document).ready(function() {
+      function read(grequestPage, gpageSize, gtype, gcondition)
     });
-  }
-  //<button type="button" class="btn btn-warning">查看</button>
-  //<button type="button" class="btn btn-danger">删除</button>
-  // 初始化
-  $(document).ready(function() {
-    read(grequestPage, gpageSize, gcheck_status);
-  });
-  //翻页
-  function showpage(type) {
-  if (type == 1) {
-    if (grequestPage == 1)
-      return false;
-    grequestPage--;
-  } else if (type == 2) {
-    if (grequestPage == totalPage)
-      return false;
-    grequestPage++;
-  } else {
+    //翻页
+    function showpage(type) {
+    if (type == 1) {
+      if (grequestPage == 1)
+        return false;
+      grequestPage--;
+    } else if (type == 2) {
+      if (grequestPage == totalPage)
+        return false;
+      grequestPage++;
+    } else {
 
-  }
-  read(grequestPage, gpageSize, gcheck_status);
+    }
+    function read(grequestPage, gpageSize, gtype, gcondition)
   }
   //查询
   function selectchange(gcheck_result1) {
     gcheck_result = gcheck_result1;
     grequestPage = 1;
-    read(grequestPage, gpageSize, gcheck_status);
+    function read(grequestPage, gpageSize, gtype, gcondition)
   }
-  </script>
-  <script>
-    NProgress.done();
-  </script>
+  //查找
+  $("#search").click(function(){
+    var building = $("#building").find("option:selected").text();
+    var floor = $("#floor").find("option:selected").text();
+    condition =
+  });
+</script>
+<script>
+  NProgress.done();
+</script>
   <!-- /datepicker -->
   <!-- /footer content -->
 </body>

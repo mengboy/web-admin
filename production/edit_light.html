@@ -553,10 +553,12 @@
   var grequestPage = 1;//请求页
   var gpageSize = 10;//一次页面显示数量--默认十不修改
   var gcheck_status = 3;//查找类型，0,1,2,若为3，则查找全部
+  var gtype = 3;
+  var gcondition = "gh";
   //var gapply_status = Number($("#table").attr("title"));//不变程序体中0-5入党状态
   //var gcheck_result = 0;//审核类型
   //var totalPage = 1;
-  function read(grequestPage, gpageSize, gcheck_status)
+  function read(grequestPage, gpageSize, gtype, gcondition)
   {
     $.ajax({
       url: "api/light/getlightbyadmin",
@@ -564,7 +566,8 @@
       data: {
         requestPage: grequestPage,
         pageSize: gpageSize,
-        check_status: gcheck_status
+        type: gtype,
+        condition: gcondition
       },
       dataType: "json",
       success: function(resp){
@@ -576,20 +579,16 @@
           $("totalPage").html(totalPage);
           for (var i = 0; i < resp.body.results; i++) {
             var results = resp.body.results[i];
-            if (results.light.status == "1") {
-              var status = "开启";
-            }
+            // <img class="off" width="100px" height="40px" src="images/off.png" />
+            // <img class="on" style="display:none" width="100px" height="40px" src="images/on.png" />
             var newRow = "<tr class=" + "one" + "><td><input type="
               + "checkbox" + " value=" + "/></td>"
-              + "<td>"+ {i+1} + "</td>"
-              + "<td>"+result.id+"</td>"
-              + "<td>"+ result.studentName + "</td>" + "<td>"
-              + result.applyTime + "</td>" + "<td>" + result.checkStatus
-              + "</td>" + "<td>" + "<button type=" + "button" + "class=" + "btn btn-warning" + ">"
+              + "<td>" + {i+1} + "</td>"
+              + "<td>" + result.id+"</td>"
+              + "<td>" + result.id.substring(0,1) +"教"+ result.id.substring(1,2) +"楼" + result.id +"号"+ "</td>"
+              + "<td>" + "<button type=" + "button" + "class=" + "btn btn-warning" + ">"
               + "<a id=" + result.studentNumber + "href=" + "check_play.html?name=" + result.studentNumber
-              + "查看" + "</a" + "</button>" + "</td>"
-              + "</td>" + "<td>" + "<button type=" + "button" + "class=" + "btn btn-danger" + "id=" + result.studentNumber + ">"
-              + "</button>" + "</td>"
+              + "修改" + "</a" + "</button>" + "</td>"
               + "</tr>";
             $("#table").append(newRow);
           }
@@ -601,7 +600,7 @@
   //<button type="button" class="btn btn-danger">删除</button>
   // 初始化
   $(document).ready(function() {
-    read(grequestPage, gpageSize, gcheck_status);
+    function read(grequestPage, gpageSize, gtype, gcondition)
   });
   //翻页
   function showpage(type) {
@@ -616,13 +615,13 @@
   } else {
 
   }
-  read(grequestPage, gpageSize, gcheck_status);
+  function read(grequestPage, gpageSize, gtype, gcondition)
 }
 //查询
 function selectchange(gcheck_result1) {
   gcheck_result = gcheck_result1;
   grequestPage = 1;
-  read(grequestPage, gpageSize, gcheck_status);
+  function read(grequestPage, gpageSize, gtype, gcondition)
 }
   </script>
   <script>

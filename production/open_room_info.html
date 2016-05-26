@@ -535,6 +535,8 @@
   var grequestPage = 1;//请求页
   var gpageSize = 10;//一次页面显示数量--默认十不修改
   var gcheck_status = 3;//查找类型，0,1,2,若为3，则查找全部
+  var gtype = 3;
+  var gcondition = "gh";
   //var gapply_status = Number($("#table").attr("title"));//不变程序体中0-5入党状态
   //var gcheck_result = 0;//审核类型
   //var totalPage = 1;
@@ -546,7 +548,8 @@
       data: {
         requestPage: grequestPage,
         pageSize: gpageSize,
-        check_status: gcheck_status
+        type: gtype,
+        condition: gcondition
       },
       dataType: "json",
       success: function(resp){
@@ -558,20 +561,28 @@
           $("totalPage").html(totalPage);
           for (var i = 0; i < resp.body.results; i++) {
             var results = resp.body.results[i];
+            var status， mode;
             if (results.light.status == "1") {
-              var status = "开启";
+              status = "关闭";
+            }else{
+              status = "开启";
+            }
+            if (results.mode == 1) {
+              mode = "on.png";
+            }else {
+              mode = "off.png";
             }
             var newRow = "<tr class=" + "one" + "><td><input type="
               + "checkbox" + " value=" + "/></td>"
-              + "<td>"+ {i+1} + "</td>"
-              + "<td>"+result.id+"</td>"
-              + "<td>"+ result.studentName + "</td>" + "<td>"
-              + result.applyTime + "</td>" + "<td>" + result.checkStatus
-              + "</td>" + "<td>" + "<button type=" + "button" + "class=" + "btn btn-warning" + ">"
+              + "<td>" + {i+1} + "</td>"
+              + "<td>" + result.id+"</td>"
+              + "<td>" + result.id.substring(0,1) +"教"+ result.id.substring(1,2) +"楼" + result.id +"号"+ "</td>"
+              + "<td>" + status + "</td>"
+              + "<td>" + result.time+ "</td>"
+              + "<td id=off" + results.id + ">" + "<" 
+              + "<td>" + "<button type=" + "button" + "class=" + "btn btn-warning" + ">"
               + "<a id=" + result.studentNumber + "href=" + "check_play.html?name=" + result.studentNumber
-              + "查看" + "</a" + "</button>" + "</td>"
-              + "</td>" + "<td>" + "<button type=" + "button" + "class=" + "btn btn-danger" + "id=" + result.studentNumber + ">"
-              + "</button>" + "</td>"
+              + "开启" + "</a" + "</button>" + "</td>"
               + "</tr>";
             $("#table").append(newRow);
           }
