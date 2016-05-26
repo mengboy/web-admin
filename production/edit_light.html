@@ -617,12 +617,21 @@
   }
   function read(grequestPage, gpageSize, gtype, gcondition)
 }
-//查询
-function selectchange(gcheck_result1) {
-  gcheck_result = gcheck_result1;
-  grequestPage = 1;
+//联动查找
+$("#search").click(function(){
+  var building = $("#building").find("option:selected").text();
+  var floor = $("#floor").find("option:selected").text();
+  gcondition = building + floor;
+  gtype = 1;
   function read(grequestPage, gpageSize, gtype, gcondition)
-}
+});
+//精确查找
+$("#search_accurate").click(function(){
+  var num = $("#number").val();
+  gcondition = num;
+  gtype = 1;
+  function read(grequestPage, gpageSize, gtype, gcondition)
+});
   </script>
   <script>
     NProgress.done();

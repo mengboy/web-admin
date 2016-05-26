@@ -192,7 +192,7 @@
                   <button id="search" style="height:25px; margin-top:6px; font-size:13px;" type="button" class="btn btn-default">查询</button>
                   &nbsp;&nbsp;&nbsp;&nbsp;
                   精确查询：
-                  <input margin-top="6px" name="namber" placeholder="请输入编号"  />
+                  <input id="number" margin-top="6px" placeholder="请输入编号"  />
                   &nbsp;&nbsp;&nbsp;&nbsp;
                   <button id="search_accurate" style="height:25px; margin-top:6px; font-size:13px;" type="button" class="btn btn-default">查询</button>
                 </td>
@@ -510,8 +510,10 @@
         $('#reportrange').data('daterangepicker').remove();
       });
     });
-    $(".off").click(function(){
-      $(".off").hide();
+    //改变照片
+    $("img").click(function(){
+      var id = $(this).attr("id");
+      $(""'#off' +id+ "").hide();
       $(".on").show();
     });
     $(".on").click(function(){
@@ -610,16 +612,25 @@
     function read(grequestPage, gpageSize, gtype, gcondition)
   }
   //查询
-  function selectchange(gcheck_result1) {
-    gcheck_result = gcheck_result1;
-    grequestPage = 1;
-    function read(grequestPage, gpageSize, gtype, gcondition)
-  }
-  //查找
+  // function selectchange(gcheck_result1) {
+  //   gcheck_result = gcheck_result1;
+  //   grequestPage = 1;
+  //   function read(grequestPage, gpageSize, gtype, gcondition)
+  // }
+  //联动查找
   $("#search").click(function(){
     var building = $("#building").find("option:selected").text();
     var floor = $("#floor").find("option:selected").text();
-    condition =
+    gcondition = building + floor;
+    gtype = 1;
+    function read(grequestPage, gpageSize, gtype, gcondition)
+  });
+  //精确查找
+  $("#search_accurate").click(function(){
+    var num = $("#number").val();
+    gcondition = num;
+    gtype = 1;
+    function read(grequestPage, gpageSize, gtype, gcondition)
   });
 </script>
 <script>
